@@ -1,5 +1,5 @@
 const loweCaseLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-const capsCaseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","K","R","S","T","U","V","W","X","Y","Z"];
+const capsCaseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 const specialCharacters = ["!","@","#","$","%","^","&","*","(",")","_","-","."];
 const passWordGenerate = [];
 let rangePass = parseInt(document.getElementById("rangeValue").value);
@@ -13,7 +13,6 @@ const message = document.getElementById("message")
 rangeInput.addEventListener("input", () => {
         rangeLong.textContent = rangeInput.value
         rangePass = parseInt(rangeInput.value)
-       // console.log(rangeInput.value + rangePass)
     })
 
 
@@ -25,8 +24,10 @@ btnGenerate.addEventListener("click", () => {
     const result = document.getElementById("result")
     const passWordGenerate = [];
 
-    //message.textContent = ""
     message.classList.remove("border-success")
+            result.style.color = "black"
+            message.classList.remove("border-danger")
+
                 
 
     let options = [];
@@ -38,9 +39,12 @@ btnGenerate.addEventListener("click", () => {
     if(options.length === 0){
         result.textContent = "Select a least one option"
         result.style.color = "red"
+        message.classList.add("border-danger")
+
+        return;
     }
 
-    for (i = 0; i < rangePass; i++){
+    for (let i = 0; i < rangePass; i++){
         const ramdonType = options[Math.floor(Math.random() * options.length)];
 
         if(ramdonType === "min"){
@@ -54,7 +58,7 @@ btnGenerate.addEventListener("click", () => {
         }
 
         if(ramdonType === "num"){
-            const numbers = Math.floor(Math.random() * 10) + 1;
+            const numbers = Math.floor(Math.random() * 10);
             passWordGenerate.push(numbers)
         }
 
@@ -67,16 +71,13 @@ btnGenerate.addEventListener("click", () => {
     result.textContent = final
 
     btnCopy.addEventListener("click", () => {
-        const copyPass = result.textContent; 
-        
+        const copyPass = result.textContent;         
         navigator.clipboard.writeText(copyPass)
             .then(() => 
                 //message.textContent = "Text Copied",
                 message.classList.add("border-success"),
-               // message.classList.add("alert-success"),
-                //message.classList.add("rounded-5")
             )
-            .catch(() => message.classList = "border");
+            .catch(() => message.classList.add("border-danger"));
     })
   
 })
